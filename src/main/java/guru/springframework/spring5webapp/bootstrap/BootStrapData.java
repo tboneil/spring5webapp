@@ -42,15 +42,19 @@ public class BootStrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        // Publisher
+        Publisher publisher = new Publisher();
+        publisher.setName("SFG Publishing");
+        publisher.setCity("St Petersburg");
+        publisher.setState("FL");
+
+        publisherRepository.save(publisher);
+
+
         // Saving to H2 database
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
-        // Publisher creation
-        Publisher penguin = new Publisher("Penguin", "NoWhere Street", "Fairbanks", "AK", "99701");
-
-        // Add publisher to repo
-        publisherRepository.save(penguin);
 
         // Console messaging output
         System.out.println("Started in bootstrap");
