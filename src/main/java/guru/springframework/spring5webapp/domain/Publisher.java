@@ -32,6 +32,14 @@ public class Publisher {
 
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     public long getId() {
         return id;
     }

@@ -28,6 +28,16 @@ public class BootStrapData implements CommandLineRunner {
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "12345");
 
+        // Publisher
+        Publisher publisher = new Publisher();
+        publisher.setName("SFG Publishing");
+        publisher.setCity("St Petersburg");
+        publisher.setState("FL");
+
+        publisherRepository.save(publisher);
+
+        System.out.println("Publisher Count: " + publisherRepository.count());
+
         // Adds book to eric and eric to the book
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
@@ -42,25 +52,19 @@ public class BootStrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
-        // Publisher
-        Publisher publisher = new Publisher();
-        publisher.setName("SFG Publishing");
-        publisher.setCity("St Petersburg");
-        publisher.setState("FL");
-
-        publisherRepository.save(publisher);
-
-
         // Saving to H2 database
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
+        ddd.setPublisher(publisher);
+        publisher.getBooks().add(ddd);
+
+        noEJB.setPublisher(publisher);
+        publisher.getBooks().add(noEJB);
 
         // Console messaging output
-        System.out.println("Started in bootstrap");
-        System.out.println("Books found: " + bookRepository.count());
-        System.out.println("Authors found: " + authorRepository.count());
-        System.out.println("Publisher found: " + publisherRepository.count());
+        System.out.println("Number of books: " + bookRepository.count());
+        System.out.println("Publisher Number of books: " + publisher.getBooks().size());
 
     }
 }
